@@ -1,0 +1,31 @@
+﻿@model Cliente
+
+<h2>Cadasto de cliente</h2>
+
+<div class="row">
+    <form class="col-md-4" asp-action="Create">
+
+        <div class="form-group">
+            <label class="control-label" asp-for="Nome"></label>
+            <input class="form-control" asp-for="Nome" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="Telefone"></label>
+            <input class="form-control" asp-for="Telefone" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="Nasc"></label>
+            <input class="form-control" asp-for="Nasc" />
+        </div>
+       
+
+        <div class="form-group">
+            <input type="submit" value="Criar!" />
+            <a asp-controller="Clientes" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
+
+
+
+

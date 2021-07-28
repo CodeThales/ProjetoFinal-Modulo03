@@ -1,0 +1,36 @@
+﻿
+<h2>Agende seu atendimento abaixo</h2>
+
+
+<div class="row">
+    <form class="col-md-4" asp-action="Create">
+
+        <div class="col-md-4">
+            <label for="inputCliente" class="form-label">Cliente</label>
+            <select id="inputCliente" class="form-select">
+                <option selected>Escolha...</option>
+                <option>...</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="inputServiço" class="form-label">Serviço</label>
+            <select id="inputServiço" class="form-select">
+                <option selected>Escolha...</option>
+                <option>...</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="inputData" class="form-label">Data</label>
+            <input id="inputData" class="form-select" type="date">
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Agendar!" />
+            <!--<a asp-controller="Home" asp-action="Index">Voltar</a>-->
+        </div>
+    </form>
+</div>
+

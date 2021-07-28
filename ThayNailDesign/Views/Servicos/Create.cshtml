@@ -1,0 +1,27 @@
+﻿@model Servico
+
+<h2>Cadasto de novo Serviço</h2>
+
+<div class="row">
+    <form class="col-md-4" asp-action="Create">
+
+        <div class="form-group">
+            <label class="control-label" asp-for="Nome"></label>
+            <input class="form-control" asp-for="Nome" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="Preco"></label>
+            <input class="form-control" asp-for="Preco" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" asp-for="Duracao"></label>
+            <input class="form-control" asp-for="Duracao" />
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Criar!" />
+            <a asp-controller="Servicos" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>

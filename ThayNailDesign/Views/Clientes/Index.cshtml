@@ -1,0 +1,70 @@
+﻿@model List<Cliente>
+
+<div id="divBusca">
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" name="nome" placeholder="Pesquisar" aria-label="Pesquisar">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+</div>
+
+<br />
+<h2>Lista de Clientes</h2>
+
+<a class="btn btn-info" asp-controller="Home" asp-action="Index">Voltar</a>
+<a class="btn btn-info" asp-controller="Clientes" asp-action="Create">Adicionar Cliente</a>
+
+
+@if(ViewBag.sorted == true)
+    {
+        <a asp-action="Index" class="btn btn-info">Remover Ordenação</a>
+    }
+else
+    {
+        <a href="/Clientes/Index?sort=nome" class="btn btn-outline-info">Ordenar por Nome</a>
+    }
+
+
+<br />
+@if (ViewBag.msg != null)
+{
+
+<div class="alert alert-success" role="alert">
+    @ViewBag.msg
+</div>
+
+}
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(Model => Model.First().Id)</th>
+            <th>@Html.DisplayNameFor(Model => Model.First().Nome)</th>
+            <th>@Html.DisplayNameFor(Model => Model.First().Telefone)</th>
+            <th>@Html.DisplayNameFor(Model => Model.First().Nasc)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Cliente cliente in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(Model => cliente.Id)</td>
+                <td>@Html.DisplayFor(Model => cliente.Nome)</td>
+                <td>@Html.DisplayFor(Model => cliente.Telefone)</td>
+                <td>@Html.DisplayFor(Model => cliente.Nasc)</td>
+                <td>
+                    <a asp-action="Read" asp-route-id="@cliente.Id">Visualizar</a> |
+                    <a asp-action="Update" asp-route-id="@cliente.Id">Atualizar</a> |
+                    <a asp-action="Confirm" asp-route-id="@cliente.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+@if (ViewBag.totClientes != null)
+{
+    <p><strong>Total de clientes cadastrados:</strong> @ViewBag.TotClientes </p>
+}

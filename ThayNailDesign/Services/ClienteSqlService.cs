@@ -29,7 +29,7 @@ namespace ThayNailDesign.Services
 
         public Cliente GetSingle(int? id)
         {
-            return _context.Cliente.FirstOrDefault(c => c.Id == id);
+            return _context.Cliente.Include($"{nameof(Cliente.Agendas)}.{nameof(Agenda.servico)}").FirstOrDefault(c => c.Id == id);
         }
 
         public bool Create(Cliente cliente)

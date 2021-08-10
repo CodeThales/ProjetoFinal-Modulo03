@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,24 +17,19 @@ namespace ThayNailDesign.Services
         }
         public List<Cliente> GetAll(string busca, bool sort = false)
         {
+            List<Cliente> lista = _context.Cliente.Include(c => c.Agendas).ToList();
             if (busca != null)
-            {
-                return getCliente().FindAll(c => c.Nome.ToLower().Contains(busca.ToLower()));
-            }
+                lista = lista.FindAll(c => c.Nome.ToLower().Contains(busca.ToLower()));
 
             if (sort)
-            {
-                var clientes = getCliente();
-                clientes = clientes.OrderBy(c => c.Nome).ToList();
-                return clientes;
-            }
+                lista = lista.OrderBy(c => c.Nome).ToList();
 
-            return getCliente();
+            return lista;
         }
 
         public Cliente GetSingle(int? id)
         {
-            return getCliente().FirstOrDefault(c => c.Id == id);
+            return _context.Cliente.FirstOrDefault(c => c.Id == id);
         }
 
         public bool Create(Cliente cliente)
@@ -54,6 +50,7 @@ namespace ThayNailDesign.Services
         {
             try
             {
+                if (!_context.Cliente.Any(c => c.Id == cliente.Id)) throw new Exception("Não existe nenhum cliente com o id informado!");
                 _context.Cliente.Update(cliente);
                 _context.SaveChanges();
                 return true;
@@ -76,12 +73,6 @@ namespace ThayNailDesign.Services
             {
                 return false;
             }
-        }
-
-        public List<Cliente> getCliente()
-        {
-            List<Cliente> lista = _context.Cliente.ToList();
-            return lista;
         }
 
     }

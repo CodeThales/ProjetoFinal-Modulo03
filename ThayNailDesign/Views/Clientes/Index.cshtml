@@ -56,9 +56,9 @@ else
     <tbody>
         @foreach (Cliente cliente in Model)
         {
-            //var classe = cliente.Agendas.Count > 0 ? "text-info" : "";
+            var classe = cliente.Agendas.Count > 0 ? "text-info" : "";
 
-            <tr >
+            <tr class="@classe">
                 <td>@Html.DisplayFor(Model => cliente.Id)</td>
                 <td>@Html.DisplayFor(Model => cliente.Nome)</td>
                 <td>@Html.DisplayFor(Model => cliente.Telefone)</td>

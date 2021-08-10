@@ -6,7 +6,8 @@
 }
 else
 {
-    <h1>Visualizando Cliente com Id: @Model.Id</h1>
+    <h2>Visualizando Cliente @Model.Nome</h2>
+    <br />
 
     <table class="table">
         <thead>
@@ -26,4 +27,6 @@ else
             </tr>
         </tbody>
     </table>
+    <br />
+    <a asp-controller="Clientes" asp-action="Index">Voltar</a>
 }

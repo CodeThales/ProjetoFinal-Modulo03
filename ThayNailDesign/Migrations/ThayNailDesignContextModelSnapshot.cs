@@ -19,6 +19,35 @@ namespace ThayNailDesign.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ThayNailDesign.Models.Agenda", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("clienteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("data")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("servicoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("clienteId");
+
+                    b.HasIndex("servicoId");
+
+                    b.ToTable("Agenda");
+                });
+
             modelBuilder.Entity("ThayNailDesign.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
@@ -30,9 +59,11 @@ namespace ThayNailDesign.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -47,10 +78,14 @@ namespace ThayNailDesign.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Duracao")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Preco")
@@ -58,7 +93,42 @@ namespace ThayNailDesign.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteId");
+
                     b.ToTable("Servico");
+                });
+
+            modelBuilder.Entity("ThayNailDesign.Models.Agenda", b =>
+                {
+                    b.HasOne("ThayNailDesign.Models.Cliente", "cliente")
+                        .WithMany("Agendas")
+                        .HasForeignKey("clienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ThayNailDesign.Models.Servico", "serviço")
+                        .WithMany()
+                        .HasForeignKey("servicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("cliente");
+
+                    b.Navigation("serviço");
+                });
+
+            modelBuilder.Entity("ThayNailDesign.Models.Servico", b =>
+                {
+                    b.HasOne("ThayNailDesign.Models.Cliente", null)
+                        .WithMany("Servicos")
+                        .HasForeignKey("ClienteId");
+                });
+
+            modelBuilder.Entity("ThayNailDesign.Models.Cliente", b =>
+                {
+                    b.Navigation("Agendas");
+
+                    b.Navigation("Servicos");
                 });
 #pragma warning restore 612, 618
         }

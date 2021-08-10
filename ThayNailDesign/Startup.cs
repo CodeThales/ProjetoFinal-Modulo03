@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ThayNailDesign.Data;
+using ThayNailDesign.Services;
 
 namespace ThayNailDesign
 {
@@ -29,6 +25,14 @@ namespace ThayNailDesign
 
             services.AddDbContext<ThayNailDesignContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ThayNailDesignContext")));
+           
+            services.AddTransient<ClienteStaticService>();
+            services.AddTransient<ServicoStaticService>();
+            services.AddTransient<ClienteSqlService>();
+            services.AddTransient<IAgendaService, AgendaSqlService>();
+            services.AddTransient<IClienteService, ClienteSqlService>();
+            services.AddTransient<IServicoService, ServicoService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

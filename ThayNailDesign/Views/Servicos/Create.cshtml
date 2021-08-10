@@ -8,19 +8,22 @@
         <div class="form-group">
             <label class="control-label" asp-for="Nome"></label>
             <input class="form-control" asp-for="Nome" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label" asp-for="Preco"></label>
             <input class="form-control" asp-for="Preco" />
+            <span asp-validation-for="Preco" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label" asp-for="Duracao"></label>
             <input class="form-control" asp-for="Duracao" />
+            <span asp-validation-for="Duracao" class="text-danger"></span>
         </div>
 
 
         <div class="form-group">
-            <input type="submit" value="Criar!" />
+            <input class="btn btn-success ml-3" type="submit" value="Criar!" />
             <a asp-controller="Servicos" asp-action="Index">Voltar</a>
         </div>
     </form>

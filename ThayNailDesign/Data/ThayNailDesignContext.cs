@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ThayNailDesign.Models;
 
 namespace ThayNailDesign.Data
@@ -15,5 +11,6 @@ namespace ThayNailDesign.Data
 
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Servico> Servico { get; set; }
+        public DbSet<Agenda> Agenda { get; set; }
     }
 }

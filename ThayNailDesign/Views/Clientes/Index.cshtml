@@ -1,27 +1,33 @@
 ﻿@model List<Cliente>
-
+@{ 
+    var service = ViewBag.selectedService;
+}
 <div id="divBusca">
     <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" name="nome" placeholder="Pesquisar" aria-label="Pesquisar">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        <select name="service" class="form-control ml-1" >
+            <option value="sql">Dados SQL</option>
+            <option value="static">Dados Estáticos</option>
+        </select>
+        
+        <button class="btn btn-outline-success my-2 my-sm-0 ml-2" type="submit">Pesquisar</button>
     </form>
 </div>
 
 <br />
-<h2>Lista de Clientes</h2>
+<h2 class="mb-3">Lista de Clientes</h2>
 
-<a class="btn btn-info" asp-controller="Home" asp-action="Index">Voltar</a>
-<a class="btn btn-info" asp-controller="Clientes" asp-action="Create">Adicionar Cliente</a>
+<a class="btn btn-success" asp-controller="Clientes" asp-action="Create">Adicionar Cliente</a>
 
 
-@if(ViewBag.sorted == true)
-    {
-        <a asp-action="Index" class="btn btn-info">Remover Ordenação</a>
-    }
+@if (ViewBag.sorted)
+{
+    <a asp-action="Index" class="btn btn-success">Remover Ordenação</a>
+}
 else
-    {
-        <a href="/Clientes/Index?sort=nome" class="btn btn-outline-info">Ordenar por Nome</a>
-    }
+{
+    <a href="/Clientes/Index?sort=true&service=@service" class="btn btn-outline-success">Ordenar por Nome</a>
+}
 
 
 <br />
@@ -30,6 +36,7 @@ else
 
 <div class="alert alert-success" role="alert">
     @ViewBag.msg
+    @TempData["exemplo"]   
 </div>
 
 }
@@ -49,15 +56,24 @@ else
     <tbody>
         @foreach (Cliente cliente in Model)
         {
-            <tr>
+            //var classe = cliente.Agendas.Count > 0 ? "text-info" : "";
+
+            <tr >
                 <td>@Html.DisplayFor(Model => cliente.Id)</td>
                 <td>@Html.DisplayFor(Model => cliente.Nome)</td>
                 <td>@Html.DisplayFor(Model => cliente.Telefone)</td>
                 <td>@Html.DisplayFor(Model => cliente.Nasc)</td>
                 <td>
-                    <a asp-action="Read" asp-route-id="@cliente.Id">Visualizar</a> |
-                    <a asp-action="Update" asp-route-id="@cliente.Id">Atualizar</a> |
-                    <a asp-action="Confirm" asp-route-id="@cliente.Id">Excluir</a>
+                    @if (ViewBag.source == "sql")
+                    {
+                        <a asp-action="Read" asp-route-id="@cliente.Id">Visualizar |</a>
+                        <a asp-action="Update" asp-route-id="@cliente.Id"> Atualizar |</a>
+                        <a asp-action="Confirm" asp-route-id="@cliente.Id"> Excluir</a>
+                    }
+                    else
+                    {
+                        <p>Não há ações disponíveis para o método estático</p>
+                    }
                 </td>
             </tr>
         }

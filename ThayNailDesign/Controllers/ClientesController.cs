@@ -37,6 +37,7 @@ namespace ThayNailDesign.Controllers
             SelectService(service);
 
             if (service == "sql") SetViewBag(source: "sql");
+            if (service == "static") SetViewBag(source: "static");
             ViewBag.selectedService = service;
 
             ViewBag.sorted = sort;

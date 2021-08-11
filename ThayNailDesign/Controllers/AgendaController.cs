@@ -48,6 +48,7 @@ namespace ThayNailDesign.Controllers
 
             if (service.create(agenda))
             {
+                TempData["Adicionado"] = "Atendimento agendado com sucesso";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -90,6 +91,7 @@ namespace ThayNailDesign.Controllers
 
                 return View(agenda);
             }
+            TempData["Atualizado"] = "Atendimento atualizado com sucesso";
             service.update(agenda);
             return RedirectToAction(nameof(Index));
         }
@@ -98,6 +100,7 @@ namespace ThayNailDesign.Controllers
         {
             if (service.delete(id))
             {
+                TempData["Excluido"] = "Atendimento excluído com sucesso";
                 return RedirectToAction(nameof(Index));
             }
             else

@@ -57,15 +57,12 @@ namespace ThayNailDesign.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Cliente cliente)
-        {
-
-            //ViewBag.totClientes = _service.GetAll(null).Count();
+        {            
             if (!ModelState.IsValid) return View(cliente);
 
             if (_service.Create(cliente))
             {
-                //ViewBag.msg = "Cliente cadastrado com sucesso!";
-                TempData["exemplo"] = "Cliente cadastrado com sucesso!";
+                TempData["Adicionado"] = "Cliente adicionado com sucesso";                
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -98,6 +95,7 @@ namespace ThayNailDesign.Controllers
             if (!ModelState.IsValid) return View(cliente);
             if (_service.Update(cliente)) 
             {
+                TempData["Atualizado"] = "Cliente atualizado com sucesso";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -111,6 +109,7 @@ namespace ThayNailDesign.Controllers
             //ViewBag.msg = "Cliente excluído com sucesso!";
             if (_service.Delete(id))
             {
+                TempData["Excluido"] = "Cliente excluído com sucesso";
                 return RedirectToAction(nameof(Index));
             }
             else

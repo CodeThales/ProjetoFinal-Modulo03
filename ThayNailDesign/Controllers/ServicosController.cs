@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ThayNailDesign.Models;
 using ThayNailDesign.Services;
 
@@ -38,6 +34,7 @@ namespace ThayNailDesign.Controllers
 
             if (service.create(servico))
             {
+                TempData["Adicionado"] = "Serviço adicionado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -71,6 +68,7 @@ namespace ThayNailDesign.Controllers
 
             if (service.update(servico))
             {
+                TempData["Atualizado"] = "Serviço atualizado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -83,6 +81,7 @@ namespace ThayNailDesign.Controllers
         {
             if (service.delete(id))
             {
+                TempData["Excluido"] = "Serviço excluido com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             else

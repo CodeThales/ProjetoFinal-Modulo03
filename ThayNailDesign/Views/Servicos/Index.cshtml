@@ -6,11 +6,25 @@
 <a class="btn btn-success mr-1 mt-2" asp-controller="Servicos" asp-action="Create">Adicionar Serviço</a>
 <br />
 
-@if (ViewBag.msg != null)
+@if (TempData["Adicionado"] != null)
 {
-<div class="alert alert-success" role="alert">
-    @ViewBag.msg
-</div>
+    <div class="alert alert-success" role="alert">
+        <p>@TempData["Adicionado"]</p>
+    </div>
+}
+
+@if (TempData["Excluido"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@TempData["Excluido"]</p>
+    </div>
+}
+
+@if (TempData["Atualizado"] != null)
+{
+    <div class="alert alert-info" role="alert">
+        <p>@TempData["Atualizado"]</p>
+    </div>
 }
 <br />
 
@@ -28,16 +42,16 @@
     <tbody>
         @foreach (Servico servico in Model)
         {
-        <tr>
-            <td>@Html.DisplayFor(Model => servico.Id)</td>
-            <td>@Html.DisplayFor(Model => servico.Nome)</td>
-            <td>@Html.DisplayFor(Model => servico.Preco)</td>
-            <td>@Html.DisplayFor(Model => servico.Duracao)</td>
-            <td>               
-                <a asp-action="Update" asp-route-id="@servico.Id">Atualizar</a> |
-                <a asp-action="Confirm" asp-route-id="@servico.Id">Excluir</a>               
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(Model => servico.Id)</td>
+                <td>@Html.DisplayFor(Model => servico.Nome)</td>
+                <td>@Html.DisplayFor(Model => servico.Preco)</td>
+                <td>@Html.DisplayFor(Model => servico.Duracao)</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@servico.Id">Atualizar</a> |
+                    <a asp-action="Confirm" asp-route-id="@servico.Id">Excluir</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

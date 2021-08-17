@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ThayNailDesign.Models;
 using ThayNailDesign.Services;
 
 namespace ThayNailDesign.Controllers
 {
+    [Authorize]
     public class AgendaController : Controller
     {
         IAgendaService service;

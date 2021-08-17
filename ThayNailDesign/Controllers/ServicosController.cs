@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ThayNailDesign.Models;
 using ThayNailDesign.Services;
 
 namespace ThayNailDesign.Controllers
 {
+    [Authorize]
     public class ServicosController : Controller
     {
         IServicoService service;

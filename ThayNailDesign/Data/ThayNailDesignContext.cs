@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ThayNailDesign.Models;
 
 namespace ThayNailDesign.Data
 {
-    public class ThayNailDesignContext : DbContext
+    public class ThayNailDesignContext : IdentityDbContext
     {
         public ThayNailDesignContext(DbContextOptions<ThayNailDesignContext> options) : base(options)
         {                

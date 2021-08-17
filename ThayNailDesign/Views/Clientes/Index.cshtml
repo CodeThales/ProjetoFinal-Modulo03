@@ -1,4 +1,8 @@
 ﻿@model List<Cliente>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+
 @{
     var service = ViewBag.selectedService;
 }
@@ -81,15 +85,19 @@ else
             {
                 var classe = cliente.Agendas.Count > 0 ? "text-info" : "";
                 <tr class="@classe">
-                    <td>@Html.DisplayFor(Model => cliente.Id)</td>
-                    <td>@Html.DisplayFor(Model => cliente.Nome)</td>
-                    <td>@Html.DisplayFor(Model => cliente.Telefone)</td>
-                    <td>@Html.DisplayFor(Model => cliente.Nasc)</td>
-                    <td>
-                        <a asp-action="Read" asp-route-id="@cliente.Id">Visualizar |</a>
-                        <a asp-action="Update" asp-route-id="@cliente.Id"> Atualizar |</a>
-                        <a asp-action="Confirm" asp-route-id="@cliente.Id"> Excluir</a>
-                    </td>
+                <td>@Html.DisplayFor(Model => cliente.Id)</td>
+                <td>@Html.DisplayFor(Model => cliente.Nome)</td>
+                <td>@Html.DisplayFor(Model => cliente.Telefone)</td>
+                <td>@Html.DisplayFor(Model => cliente.Nasc)</td>
+
+                @if(SignInManager.IsSignedIn(User))
+                {
+                <td>
+                    <a asp-action="Read" asp-route-id="@cliente.Id">Visualizar |</a>
+                    <a asp-action="Update" asp-route-id="@cliente.Id"> Atualizar |</a>
+                    <a asp-action="Confirm" asp-route-id="@cliente.Id"> Excluir</a>
+                </td>
+                }
                 </tr>
             }
         </tbody>

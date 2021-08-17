@@ -1,4 +1,6 @@
 ﻿@model List<Agenda>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 
 <h3 class="mt-4 mb-4">Atendimentos agendados</h3>
 
@@ -38,16 +40,19 @@
     <tbody>
         @foreach (Agenda agenda in Model)
         {
-            <tr>
-                <td> @Html.DisplayFor(Model => agenda.id) </td>
-                <td> @Html.DisplayFor(Model => agenda.cliente.Nome) </td>
-                <td> @Html.DisplayFor(Model => agenda.servico.Nome) </td>
-                <td> @Html.DisplayFor(Model => agenda.data) </td>
+        <tr>
+            <td> @Html.DisplayFor(Model => agenda.id) </td>
+            <td> @Html.DisplayFor(Model => agenda.cliente.Nome) </td>
+            <td> @Html.DisplayFor(Model => agenda.servico.Nome) </td>
+            <td> @Html.DisplayFor(Model => agenda.data) </td>
+            @if (SignInManager.IsSignedIn(User))
+            {
                 <td>
-                    <a asp-action="Update" asp-route-id="@agenda.id">Atualizar</a> |
-                    <a asp-action="Confirm" asp-route-id="@agenda.id">Deletar</a>
+                    <a asp-action="Update" asp-route-id="@agenda.id">Atualizar |</a>
+                    <a asp-action="Confirm" asp-route-id="@agenda.id"> Deletar</a>
                 </td>
-            </tr>
+            }
+        </tr>
         }
     </tbody>
 </table>

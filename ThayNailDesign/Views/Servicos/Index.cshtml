@@ -1,4 +1,6 @@
 ﻿@model List<Servico>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 
 <br />
 <h2>Lista de Serviços</h2>
@@ -47,10 +49,14 @@
                 <td>@Html.DisplayFor(Model => servico.Nome)</td>
                 <td>@Html.DisplayFor(Model => servico.Preco)</td>
                 <td>@Html.DisplayFor(Model => servico.Duracao)</td>
-                <td>
-                    <a asp-action="Update" asp-route-id="@servico.Id">Atualizar</a> |
-                    <a asp-action="Confirm" asp-route-id="@servico.Id">Excluir</a>
-                </td>
+
+                @if(SignInManager.IsSignedIn(User))
+                {
+                    <td>
+                        <a asp-action="Update" asp-route-id="@servico.Id">Atualizar |</a>
+                        <a asp-action="Confirm" asp-route-id="@servico.Id"> Excluir</a>
+                    </td>
+                }                
             </tr>
         }
     </tbody>

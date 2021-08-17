@@ -5,7 +5,7 @@ using ThayNailDesign.Services;
 
 namespace ThayNailDesign.Controllers
 {
-    [Authorize]
+    
     public class ServicosController : Controller
     {
         IServicoService service;
@@ -22,6 +22,7 @@ namespace ThayNailDesign.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -30,6 +31,7 @@ namespace ThayNailDesign.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public IActionResult Create(Servico servico)
         {
             if (!ModelState.IsValid) return View(servico);
@@ -54,6 +56,7 @@ namespace ThayNailDesign.Controllers
                 NotFound();
         }
 
+        [Authorize]
         public IActionResult Update(int? id)
         {
             Servico servico = service.get(id);
@@ -63,6 +66,7 @@ namespace ThayNailDesign.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Update(Servico servico)
         {
@@ -79,6 +83,7 @@ namespace ThayNailDesign.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult Delete(int? id)
         {
             if (service.delete(id))

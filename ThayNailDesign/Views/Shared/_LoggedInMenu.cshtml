@@ -3,14 +3,8 @@
 @inject UserManager<IdentityUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Servicos" asp-action="Index">Serviços</a>
-    </li>
+{    
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Agenda" asp-action="Index">Agenda</a>
-    </li>
+    </li>    
 }

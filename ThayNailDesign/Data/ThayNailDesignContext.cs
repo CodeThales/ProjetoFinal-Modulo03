@@ -13,5 +13,7 @@ namespace ThayNailDesign.Data
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Servico> Servico { get; set; }
         public DbSet<Agenda> Agenda { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
+
     }
 }

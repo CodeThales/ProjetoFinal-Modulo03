@@ -30,7 +30,7 @@ namespace ThayNailDesign.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="É preciso preencher o campo de email.")]
             [EmailAddress]
             public string Email { get; set; }
         }

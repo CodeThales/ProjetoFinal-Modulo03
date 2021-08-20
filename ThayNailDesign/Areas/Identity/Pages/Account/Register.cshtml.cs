@@ -51,7 +51,7 @@ namespace ThayNailDesign.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage ="É obrigatório informar uma senha")]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "A {0} precisa ter ao menos {2} e no máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }

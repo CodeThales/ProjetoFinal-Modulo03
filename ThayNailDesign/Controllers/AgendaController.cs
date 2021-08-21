@@ -22,7 +22,7 @@ namespace ThayNailDesign.Controllers
 
         public IActionResult Index()
         {
-            return View(service.getAll());
+            return View(service.getAll(User.Identity.Name));
         }
         
         [HttpGet]
@@ -48,7 +48,7 @@ namespace ThayNailDesign.Controllers
 
             if (!ModelState.IsValid) return View(agenda);
 
-            if (service.create(agenda))
+            if (service.create(agenda, User.Identity.Name))
             {
                 TempData["Adicionado"] = "Atendimento agendado com sucesso";
                 return RedirectToAction(nameof(Index));

@@ -14,13 +14,20 @@ namespace ThayNailDesign.Services
             this.context = context;
         }
 
-        public List<Agenda> getAll()
+        public List<Agenda> getAll(string userName)
         {
-            return context.Agenda.Include(a => a.cliente).Include(a => a.servico).ToList();
+            string userId = context.Users.FirstOrDefault(u => u.UserName == userName).Id;
+            return context.Agenda
+                .Where(a => a.userId == userId)
+                .Include(a => a.cliente).Include(a => a.servico).ToList();
         }
 
-        public bool create(Agenda agenda)
+        public bool create(Agenda agenda, string userName)
         {
+            string userId = context.Users.FirstOrDefault(u => u.UserName == userName).Id;
+            agenda.userId = userId;
+            agenda.servico = context.Servico.Find(agenda.servicoId);
+
             try
             {
                 context.Agenda.Add(agenda);

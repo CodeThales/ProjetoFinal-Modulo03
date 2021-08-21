@@ -239,11 +239,16 @@ namespace ThayNailDesign.Migrations
                     b.Property<int>("servicoId")
                         .HasColumnType("int");
 
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("id");
 
                     b.HasIndex("clienteId");
 
                     b.HasIndex("servicoId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Agenda");
                 });
@@ -386,9 +391,15 @@ namespace ThayNailDesign.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+
                     b.Navigation("cliente");
 
                     b.Navigation("servico");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("ThayNailDesign.Models.Servico", b =>

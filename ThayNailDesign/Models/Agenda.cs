@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -34,5 +35,7 @@ namespace ThayNailDesign.Models
         [Display(Name = "Info Adicional")]
         public string descricao { get; set; }
         
+        public string userId { get; set; }
+        public IdentityUser user { get; set; }
     }
 }

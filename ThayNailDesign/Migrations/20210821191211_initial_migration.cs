@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ThayNailDesign.Migrations
 {
-    public partial class Identity : Migration
+    public partial class initial_migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,36 @@ namespace ThayNailDesign.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cliente",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nasc = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cliente", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fornecedor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prazo = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fornecedor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +182,78 @@ namespace ThayNailDesign.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Servico",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Preco = table.Column<double>(type: "float", nullable: false),
+                    Duracao = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servico", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Servico_Cliente_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Agenda",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    clienteId = table.Column<int>(type: "int", nullable: false),
+                    servicoId = table.Column<int>(type: "int", nullable: false),
+                    data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Agenda", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Agenda_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Agenda_Cliente_clienteId",
+                        column: x => x.clienteId,
+                        principalTable: "Cliente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Agenda_Servico_servicoId",
+                        column: x => x.servicoId,
+                        principalTable: "Servico",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agenda_clienteId",
+                table: "Agenda",
+                column: "clienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agenda_servicoId",
+                table: "Agenda",
+                column: "servicoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agenda_userId",
+                table: "Agenda",
+                column: "userId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,10 +292,18 @@ namespace ThayNailDesign.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Servico_ClienteId",
+                table: "Servico",
+                column: "ClienteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Agenda");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -210,10 +320,19 @@ namespace ThayNailDesign.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Fornecedor");
+
+            migrationBuilder.DropTable(
+                name: "Servico");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cliente");
         }
     }
 }
